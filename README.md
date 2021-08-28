@@ -1,9 +1,5 @@
 # LLRaftChallenge
 Raft code challenge. 
 
-### Requirements
-    - Java 16.0.2
-    - Maven 3.8.2
-    - PostgreSQL 13.4
-    - Git 2.33.0
-
+# Idea
+Refactor the code to use SpringBoot since this is an REST application kind of, then looks like SPRINGBOOT might be very helpful here.

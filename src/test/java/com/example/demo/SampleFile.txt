@@ -1,0 +1,4 @@
+2 | Eggs | 20
+3 | Bread | 1
+3 | Ham | 1
+3 | Cheese | 1
