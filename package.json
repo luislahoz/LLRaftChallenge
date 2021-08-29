@@ -1,0 +1,6 @@
+{
+  "proxy": "http://localhost:8080",
+  "dependencies": {
+    "npx": "^10.2.2"
+  }
+}
