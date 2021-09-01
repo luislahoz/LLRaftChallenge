@@ -26,12 +26,14 @@ public class OrderService {
     }
 
     @Transactional
-    public void save(Order order){
-        orderDao.addOrder(order);
+    public Order save(Order order){
+        // System.out.println("ORDER SERVICE SAVE - " + order);
+        return orderDao.addOrder(order);
     }
 
     @Transactional
-    public void delete(int id){
-        orderDao.deleteOrder(id);
+    public Order delete(int id){
+        // System.out.println("Removed order " + id);
+        return orderDao.deleteOrder(id);
     }
 }
