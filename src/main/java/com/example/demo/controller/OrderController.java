@@ -46,12 +46,23 @@ public class OrderController {
     
     @GetMapping("/order/{id}")
     public ResponseEntity<?> get(@PathVariable int id) {
-        return new ResponseEntity<>(orderService.get(id), HttpStatus.OK);
+        Order order = orderService.get(id);
+        if(order != null){
+            return new ResponseEntity<>(orderService.get(id), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        
     }
     
     @DeleteMapping("/order/{id}")
     public ResponseEntity<?> delete(@PathVariable int id) {
-        return new ResponseEntity<>(orderService.delete(id), HttpStatus.OK);
+        Order order = orderService.delete(id);
+        if (order != null){
+            return new ResponseEntity<>(order, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
     
     @PutMapping("/order")
@@ -86,6 +97,6 @@ public class OrderController {
                 System.out.println("Upload Error "+ e.getMessage());
             }
         }
-        return null;
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

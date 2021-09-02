@@ -28,19 +28,29 @@ public class OrderDAO {
     }
 
     public Order getOrder(int id){
-        String sql = "SELECT * FROM orders WHERE id = " + id;
-        Order order = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Order.class));
-        return order;
+        try {
+            String sql = "SELECT * FROM orders WHERE id = " + id;
+            Order order = jdbcTemplate.queryForObject(sql, BeanPropertyRowMapper.newInstance(Order.class));
+            return order;
+        }catch (Exception e){
+            System.out.println("Item " + id + " not available to view");
+            return null;
+        }
     }
 
     public Order deleteOrder (int id){
-        Order order = getOrder(id);
-        String sql = "DELETE FROM orders WHERE id = " + id;
-        int result = jdbcTemplate.update(sql);
-        if (result > 0){
-            System.out.println("Delete id " + id + " successfully.");
+        try {
+            Order order = getOrder(id);
+            String sql = "DELETE FROM orders WHERE id = " + id;
+            int result = jdbcTemplate.update(sql);
+            if (result > 0){
+                System.out.println("Delete id " + id + " successfully.");
+            }
+            return order;
+        }catch (Exception e){
+            System.out.println("Item " + id + " not available to delete");
+            return null;
         }
-        return order;
     }
 
     public Order addOrder(Order order){

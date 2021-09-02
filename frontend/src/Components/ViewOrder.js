@@ -63,22 +63,30 @@ export default function ViewOrder() {
 
   const [data, upDateData] = React.useState([]);
   const [id, getID] = React.useState("");
+  const [message, setMessage] = React.useState("");
 
   const handleGetID= event => getID(event.target.value);
 
   async function sampleFunc(toInput) {
     let response = await fetch("/api/order/"+id);
-    let body = await response.json();
-    upDateData(body);
+    if(response.status === 200){
+      let body = await response.json();
+      upDateData(body);
+      setMessage("");
+    }else {
+      setMessage("Data View failed or Item "+ id + " not available to view");
+    }
+    
   }
 
   const handleSubmit = variables => {
     const toInput = {id};
+    upDateData('');
     sampleFunc(toInput);
-    // getID("");
+    getID("");
   };
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <div className={classes.paper}>
@@ -142,6 +150,10 @@ export default function ViewOrder() {
             </TableBody>
           </Table>
         </TableContainer>
+        {" "}
+            <Typography align="center">
+              {message}
+            </Typography>{" "}
 
       <Link className={classes.link} to="/">
         {" "}

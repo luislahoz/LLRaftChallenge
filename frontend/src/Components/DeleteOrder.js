@@ -59,9 +59,12 @@ export default function DeleteOrder() {
       referrerPolicy: "no-referrer", // no-referrer, *client
       body: JSON.stringify(toInput) // body data type must match "Content-Type" header
     });
-    let body = await response.json();
-    console.log(body);
-    setMessage(body.id ? "Data " + body.id + " Deleted" : "Data Deletion failed");
+    let body = await response;
+    if(body.status === 200){
+      setMessage("Data " + id + " Deleted");
+    }else {
+      setMessage("Data Deletion failed or Item "+ id + " not available to delete");
+    }
   }
 
   const handleSubmit = variables => {
