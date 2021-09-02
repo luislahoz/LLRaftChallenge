@@ -40,7 +40,6 @@ export default function AddOrder() {
   const classes = useStyles();
   const [file, setFile] = useState('');
   const [filename, setFilename] = useState('');
-  const [uploadedFile, setUploadedFile] = useState({});
   const [message, setMessage] = useState('');
 
   const onChange = e => {
@@ -52,9 +51,7 @@ export default function AddOrder() {
     e.preventDefault();
     const formData = new FormData();
     formData.append('file', file);
-    console.log("THE NEW ONE!!");
-console.log(file);
-console.log(formData);
+
     try {
       const res = await axios.post('http://localhost:8080/api/uploadfile', formData, {
         headers: {
@@ -62,18 +59,15 @@ console.log(formData);
         }
       });
 
-      const { fileName, filePath } = res.data;
+      console.log(res.data);
+      setMessage("File "+ filename + " uploaded, contains " + res.data.length + " entries.");
 
-      setUploadedFile({ fileName, filePath });
-
-      setMessage('File Uploaded');
     } catch (err) {
       if (err.response.status === 500) {
         setMessage('There was a problem with the server');
       } else {
         setMessage(err.response.data.msg);
       }
-      // setUploadPercentage(0)
     }
   };
 
@@ -119,17 +113,8 @@ console.log(formData);
                   </Typography>{" "}
                 </Link>
               </Grid>
-          {message ? <Message msg={message} /> : null}
+              {message ? <Message msg={message} /> : null}
             </form>
-            {uploadedFile ? (
-              <div className='row mt-5'>
-                <div className='col-md-6 m-auto'>
-                  {/* <h3 className='text-center'>{uploadedFile.fileName}</h3> */}
-                  <h3 className='text-center'>{filename}</h3>
-                  <img style={{ width: '100%' }} src={uploadedFile.filePath} alt='' />
-                </div>
-              </div>
-            ) : null}
           </Grid>
       </div>
     </Container>
