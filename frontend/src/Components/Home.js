@@ -41,7 +41,7 @@ export default function Home() {
           <ShopIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Home
+          RAFT Challenge
         </Typography>
         <form className={classes.form} noValidate>
           <Grid container spacing={2}>

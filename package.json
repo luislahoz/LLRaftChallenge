@@ -1,5 +1,5 @@
 {
-  "proxy": "http://localhost:8080",
+  "proxy": "http://server-api:8080",
   "dependencies": {
     "axios": "^0.21.1",
     "npx": "^10.2.2"

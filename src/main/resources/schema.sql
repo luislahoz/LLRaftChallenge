@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS orders (id SERIAL PRIMARY KEY, order_id INT NOT NULL, product_name VARCHAR(45) NOT NULL, product_quantity INT NOT NULL);

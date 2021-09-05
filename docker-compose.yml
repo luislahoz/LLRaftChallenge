@@ -1,0 +1,70 @@
+version: '3.4'
+
+networks:
+  backend:
+    driver: bridge
+
+services:
+  db:
+      container_name: pg_container
+      image: postgres
+      restart: always
+      environment:
+        POSTGRES_USER: username
+        POSTGRES_PASSWORD: passwd
+        POSTGRES_DB: raftchallenge
+      ports:
+        - "5432:5432"
+      volumes: 
+        - ./postgres-data:/var/lib/postgresql/data
+        # copy the sql script to create tables
+        - ./src/main/resources/01-init.sh:/docker-entrypoint-initdb.d/01-init.sh
+      networks:
+        - backend 
+
+      # volumes:
+      #   - $HOME/Desktop/PostgreSql-Snippets/infile:/infile
+  #       - pg_data:/var/lib/postgresql/data/
+  # volumes:
+  #   pg_data:
+
+  llraftchallenge-server:
+      container_name: server-api
+      build:
+        context: .
+        dockerfile: Dockerfile
+      ports:
+        - 8080:8080
+      restart: always
+      depends_on: 
+        - db
+      environment:
+        SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/raftchallenge
+        SPRING_DATASOURCE_USERNAME: username
+        SPRING_DATASOURCE_PASSWORD: passwd     
+      networks:
+        - backend
+
+  # llraftchallenge:
+  #   image: llraftchallenge
+  #   build:
+  #     context: .
+  #     dockerfile: ./Dockerfile
+  #   ports:
+  #     - 3000:3000
+  #     - 8080:8080
+  llraftchallenge-client:
+      container_name: client-api
+      build:
+        context: frontend
+        dockerfile: Dockerfile
+        # args:
+        #   REACT_APP_API_BASE_URL: http://127.0.0.1:8080/api
+      ports:
+        # - "9090:80" # Forward the exposed port 80 on the container to port 80 on the host machine
+        - 3000:3000
+      restart: always
+      depends_on:
+        - lllraftchallenge-server
+      networks:
+        - backend  
