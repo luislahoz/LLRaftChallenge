@@ -35,7 +35,7 @@ Raft code challenge.
 ## How to use the RAFT challenge app
 
 The home screen will show multple selections
-![Home Screenshot](./docs/home.png)
+![Home Screenshot](./docs/Home.png)
 
 Add Order view, here the user can add a txt file with orders.
 Just click on `Choose File` select the file that contains the orders and then click on `Add Orders`.
@@ -43,10 +43,12 @@ The format of the file will be: `<order_id> | <product_name> | <product_quantity
 ![Home Screenshot](./docs/AddOrder.png)
 
 Delete view, here the user can delete orders, one at a time, the user needs to provide the item id.
-Just type the id and click `Delete`
+Just type the id and click `Delete`.
 ![Home Screenshot](./docs/DeleteOrder.png)
 
 View order, here the user can view an order, one at a time, the user needs to provide the item id.
+Just type the id and click `View Order`.
 ![Home Screenshot](./docs/ViewOrder.png)
 
+As a Bonus the developer created a view where the user can view all the orders. 
 ![Home Screenshot](./docs/ViewAll.png)
